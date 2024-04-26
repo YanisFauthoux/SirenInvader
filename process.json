@@ -1,0 +1,15 @@
+{
+    "apps": [
+      {
+        "name": "indexation",
+        "script": "index.js",
+        "instances": "4",
+        "exec_mode": "cluster",
+        "watch": false,
+        "env": {
+          "NODE_ENV": "production"
+        }
+      }
+    ]
+  }
+  

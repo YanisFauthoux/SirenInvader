@@ -32,8 +32,8 @@ Le fichier `indexData.js` contient la logique d'indexation des données CSV dans
 5. Enregistrement du temps d'indexation.
 
 ## Documentation
-[Diagramme d’activité UML](./documentation/uml.drawio.pdf)
-[Topographie du cluster](./documentation/topographie.drawio.pdf)
+- [Diagramme d’activité UML](./documentation/uml.drawio.pdf)
+- [Topographie du cluster](./documentation/topographie.drawio.pdf)
 
 ## Conclusion
 Ce processus d'indexation parallèle permet de traiter efficacement de grandes quantités de données à partir de fichiers CSV et de les stocker dans une base de données MongoDB. Il peut être adapté et configuré en fonction des besoins spécifiques de l'application.

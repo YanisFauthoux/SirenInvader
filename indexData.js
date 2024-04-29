@@ -1,9 +1,6 @@
-// indexData.js
-
 const fs = require('fs');
 const mongoose = require('mongoose');
 
-// Connexion à MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/sirene');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erreur de connexion à MongoDB :'));
@@ -11,7 +8,6 @@ db.once('open', () => {
     console.log('Connexion à MongoDB réussie.');
 });
 
-// Définition du schéma Mongoose
 const sireneSchema = new mongoose.Schema({
     siren: String,
     nic: String,
@@ -39,7 +35,6 @@ const indexData = async (workerId, totalWorkers) => {
             const rows = csvData.trim().split('\n').map(row => row.split(','));
             for (const row of rows) {
                 if (row[0] !== "siren") {
-                    // Gestion des valeurs de date invalides ou manquantes
                     const dateCreation = row[4] !== 'Invalid Date' ? new Date(row[4]) : null;
                     const dateDernierTraitement = row[8] !== 'Invalid Date' ? new Date(row[8]) : null;
                     const dateDebut = row[44] !== 'Invalid Date' ? new Date(row[44]) : null;
@@ -47,7 +42,6 @@ const indexData = async (workerId, totalWorkers) => {
                         console.log(`Ligne ignorée : valeurs de date invalides.`);
                         continue;
                     }
-                    // Ajoutez l'opération d'insertion au tableau en vrac
                     bulkOps.push({
                         insertOne: {
                             document: {
@@ -70,8 +64,8 @@ const indexData = async (workerId, totalWorkers) => {
             }
             await Sirene.bulkWrite(bulkOps);
             const endTime = new Date();
-const elapsedTime = (endTime - startTime) / 1000;
-console.log(`Temps d'indexation du fichier ${filePath}: ${elapsedTime} secondes`);
+            const elapsedTime = (endTime - startTime) / 1000;
+            console.log(`Temps d'indexation du fichier ${filePath}: ${elapsedTime} secondes`);
 
             console.log(`Indexation terminée pour le fichier ${filePath}`);
         }
